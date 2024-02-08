@@ -57,6 +57,7 @@ def checkGuess(guess):
             if letter == guess:
                 # correct guess
                 guessedword[answer.index(letter)] = letter
+            # FIX THIS FUTURE ALVIN. CORRECT GUESSES STILL REDUCES TRIES.
             else:
                 incorrect += 1
 
