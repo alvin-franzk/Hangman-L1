@@ -8,10 +8,11 @@ answer = []
 blanks = []
 guessedword = []
 lettersused = []
+global lives 
 
 def main():
     word = generateWord()
-    lives = round(len(word) / 2)
+    lives = round(len(word) / 2) - 1
 
     # Loop game
     guess = ''
@@ -41,13 +42,11 @@ def printResult(word, guess):
 
 
 def checkGuess(guess):
-    correctguess = 0
-    lettercount = -1
     for letter in answer:
         lettercount += 1
         if guess == letter:
-            blanks[lettercount] = answer[lettercount]
-            guessedword[lettercount] = answer[lettercount]
+            blanks[letter.index] = answer[letter.index]
+            guessedword[letter.index] = answer[letter.index]
             correctguess += 1
     if correctguess > 0:
         return True
