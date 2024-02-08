@@ -4,55 +4,73 @@ import random
 from random_word import RandomWords
 r = RandomWords()
 
+# variables
 answer = []
-blanks = []
 guessedword = []
 lettersused = []
-global lives 
 
 def main():
     word = generateWord()
-    lives = round(len(word) / 2) - 1
+    global tries
+    tries = round(len(word) / 2) + 1
 
     # Loop game
-    guess = ''
-    while lives != 0:
-        printResult(word, checkGuess(guess))
-        print("Lives:", lives)
-        guess = input("Your guess: ")
-
+    while tries != 0:
+        hangman(word)
+        print("\nTries:", tries)
+        guess = input("Your guess: ")        
+        checkGuess(guess)
 
 
 def generateWord():
     with open('words_alpha.txt') as dict:
         words = dict.read().splitlines()
         word = random.choice(words)
-        return word
+
+    # storing word to array answer
+    for letter in word:
+        answer.append(letter)
+
+    # storing array blanks/underscores
+    for x in range(len(word)):
+        guessedword.append("_")
+
+    return word
 
 
-def printResult(word, guess):
-    if lives == round(len(word) / 2):
-        print("Your word is:", end = " ")
-        for letter in word:
-            answer.append(letter)
-        for x in range(len(word)):
-            blanks.append(x)
-            guessedword.append("_")
+def hangman(word):
+    system('cls')
+    print("Your word is:", end = " ")
+
+    for x in range(len(word)):
+        print(guessedword[x], end = " ")
         
 
-
 def checkGuess(guess):
-    for letter in answer:
-        lettercount += 1
-        if guess == letter:
-            blanks[letter.index] = answer[letter.index]
-            guessedword[letter.index] = answer[letter.index]
-            correctguess += 1
-    if correctguess > 0:
-        return True
+    incorrect = 0
+    if guess not in lettersused:
+        # update letters used
+        lettersused.append(guess)
+
+        # check letter/guess
+        for letter in answer:
+            if letter == guess:
+                # correct guess
+                guessedword[answer.index(letter)] = letter
+            else:
+                incorrect += 1
+
+        if incorrect != 0:
+            # incorrect guess
+            global tries
+            tries -= 1
+            return 1
+        else:
+            # correct guess / OK status
+            return 0
     else:
-        return False
-
-
+        # same guess
+        return 2
+    
 
 main()

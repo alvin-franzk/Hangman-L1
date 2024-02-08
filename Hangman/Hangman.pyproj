@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e1bf7162-66ec-4b9e-9833-bfc4cc18db44</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Hangman.py</StartupFile>
+    <StartupFile>Hangman-rev.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
